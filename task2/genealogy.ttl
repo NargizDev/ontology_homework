@@ -1,0 +1,61 @@
+@prefix : <http://example.org/genealogy#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/genealogy> rdf:type owl:Ontology ;
+  rdfs:label "Genealogy (Человек-Родители, Предки/Потомки)"@ru .
+
+### Классы
+:Human rdf:type owl:Class ;
+  rdfs:label "Человек"@ru .
+
+### Объектные свойства
+# hasParent: единственный родитель
+:hasParent rdf:type owl:ObjectProperty , owl:FunctionalProperty , owl:IrreflexiveProperty , owl:AsymmetricProperty ;
+  rdfs:domain :Human ;
+  rdfs:range  :Human ;
+  rdfs:label "имеет родителя"@ru .
+
+# hasAncestor: транзитивное отношение предка
+:hasAncestor rdf:type owl:ObjectProperty , owl:TransitiveProperty ;
+  rdfs:domain :Human ;
+  rdfs:range  :Human ;
+  rdfs:label "имеет предка"@ru .
+
+# hasDescendant: потомок = обратное к предку
+:hasDescendant rdf:type owl:ObjectProperty , owl:TransitiveProperty ;
+  owl:inverseOf :hasAncestor ;
+  rdfs:domain :Human ;
+  rdfs:range  :Human ;
+  rdfs:label "имеет потомка"@ru .
+
+# Связи между свойствами
+:hasParent rdfs:subPropertyOf :hasAncestor .
+
+### Ограничения на класс Human
+# Каждый человек имеет ровно одного родителя-человека
+:Human rdfs:subClassOf [
+    a owl:Restriction ;
+    owl:onProperty :hasParent ;
+    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+    owl:onClass :Human
+] .
+
+### Примеры индивидов (демонстрация вывода)
+:alice a owl:NamedIndividual , :Human ;
+    rdfs:label "Алиса"@ru ;
+    :hasParent :mark .
+
+:mark a owl:NamedIndividual , :Human ;
+    rdfs:label "Марк"@ru ;
+    :hasParent :maria .
+
+:maria a owl:NamedIndividual , :Human ;
+    rdfs:label "Мария"@ru ;
+    :hasParent :osman .
+
+:osman a owl:NamedIndividual , :Human ;
+    rdfs:label "Осман"@ru ;
+    :hasParent :alice .  # цикл исключительно для демонстрации, чтобы у всех был ровно один родитель
