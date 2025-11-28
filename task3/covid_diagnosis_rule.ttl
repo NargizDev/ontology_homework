@@ -1,0 +1,64 @@
+@prefix : <http://kik.misis.ru/ontology/mpi/2025/Исмаилова-Наргиз/task3/> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[
+  rdf:type swrl:Imp ;
+  swrl:body (
+      [ rdf:type swrl:ClassAtom ;
+        swrl:classPredicate :Пациент ;
+        swrl:argument1 ?p
+      ]
+      [ rdf:type swrl:ClassAtom ;
+        swrl:classPredicate :Наблюдение ;
+        swrl:argument1 ?o1
+      ]
+      [ rdf:type swrl:IndividualPropertyAtom ;
+        swrl:propertyPredicate :madeFor ;
+        swrl:argument1 ?o1 ;
+        swrl:argument2 ?p
+      ]
+      [ rdf:type swrl:IndividualPropertyAtom ;
+        swrl:propertyPredicate :recordsSymptom ;
+        swrl:argument1 ?o1 ;
+        swrl:argument2 :fever
+      ]
+      [ rdf:type swrl:ClassAtom ;
+        swrl:classPredicate :Наблюдение ;
+        swrl:argument1 ?o2
+      ]
+      [ rdf:type swrl:IndividualPropertyAtom ;
+        swrl:propertyPredicate :madeFor ;
+        swrl:argument1 ?o2 ;
+        swrl:argument2 ?p
+      ]
+      [ rdf:type swrl:IndividualPropertyAtom ;
+        swrl:propertyPredicate :recordsSymptom ;
+        swrl:argument1 ?o2 ;
+        swrl:argument2 :dry_cough
+      ]
+      [ rdf:type swrl:ClassAtom ;
+        swrl:classPredicate :Наблюдение ;
+        swrl:argument1 ?o3
+      ]
+      [ rdf:type swrl:IndividualPropertyAtom ;
+        swrl:propertyPredicate :madeFor ;
+        swrl:argument1 ?o3 ;
+        swrl:argument2 ?p
+      ]
+      [ rdf:type swrl:IndividualPropertyAtom ;
+        swrl:propertyPredicate :recordsSymptom ;
+        swrl:argument1 ?o3 ;
+        swrl:argument2 :loss_of_smell
+      ]
+  ) ;
+  swrl:head (
+      [ rdf:type swrl:ClassAtom ;
+        swrl:classPredicate :ПодтверждённыйДиагноз ;
+        swrl:argument1 ?p
+      ]
+  )
+] .

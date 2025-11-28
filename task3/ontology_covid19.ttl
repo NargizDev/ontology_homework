@@ -1,0 +1,69 @@
+@prefix : <http://kik.misis.ru/ontology/mpi/2025/Исмаилова-Наргиз/task3/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://kik.misis.ru/ontology/mpi/2025/Исмаилова-Наргиз/task3> rdf:type owl:Ontology .
+
+#################################################################
+# Classes
+#################################################################
+
+:Пациент rdf:type owl:Class .
+:Симптом rdf:type owl:Class .
+:Наблюдение rdf:type owl:Class .
+:Заболевание rdf:type owl:Class .
+:COVID19 rdf:type owl:Class ;
+    rdfs:subClassOf :Заболевание .
+:ПодтверждённыйДиагноз rdf:type owl:Class .
+
+#################################################################
+# Object Properties
+#################################################################
+
+:hasSymptom rdf:type owl:ObjectProperty ;
+    rdfs:domain :Пациент ;
+    rdfs:range  :Симптом .
+
+:recordsSymptom rdf:type owl:ObjectProperty ;
+    rdfs:domain :Наблюдение ;
+    rdfs:range  :Симптом .
+
+:madeFor rdf:type owl:ObjectProperty ;
+    rdfs:domain :Наблюдение ;
+    rdfs:range  :Пациент .
+
+:indicates rdf:type owl:ObjectProperty ;
+    rdfs:domain :Симптом ;
+    rdfs:range  :Заболевание .
+
+#################################################################
+# Individuals
+#################################################################
+
+### Пациент
+:patient_1 rdf:type owl:NamedIndividual , :Пациент .
+
+### Симптомы
+:fever rdf:type owl:NamedIndividual , :Симптом .
+:dry_cough rdf:type owl:NamedIndividual , :Симптом .
+:loss_of_smell rdf:type owl:NamedIndividual , :Симптом .
+
+### Заболевание
+:covid_case rdf:type owl:NamedIndividual , :COVID19 .
+
+### Наблюдения (фиксируют симптомы)
+:obs1 rdf:type owl:NamedIndividual , :Наблюдение ;
+    :madeFor :patient_1 ;
+    :recordsSymptom :fever .
+
+:obs2 rdf:type owl:NamedIndividual , :Наблюдение ;
+    :madeFor :patient_1 ;
+    :recordsSymptom :dry_cough .
+
+:obs3 rdf:type owl:NamedIndividual , :Наблюдение ;
+    :madeFor :patient_1 ;
+    :recordsSymptom :loss_of_smell .
+
